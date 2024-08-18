@@ -65,3 +65,13 @@ h1, h2 {
 .swiper-pagination-bullet-active {
     color: #007aff;
 }
+
+#startButton {
+    background: none;
+    color: inherit; /* Inherits the color from the parent element */
+    border: none;
+    padding: 0;
+    font: inherit; /* Keeps the font settings from the parent */
+    cursor: pointer; /* Shows a pointer cursor on hover */
+    outline: inherit; /* Uses the outline style from the parent if any */
+}

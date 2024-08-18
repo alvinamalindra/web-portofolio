@@ -21,8 +21,12 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" id="home">
                 <div class="slide-content">
-                    <h1>Test</h1>
-                    <p>TESINGGGGGGGGGGGGGG</p>
+                    <h1>いらっしゃいませ!</h1>
+                    <div id="typedtext"></div>
+                    <div id="after-typing" style="display: none;">
+                        <p>Are you ready?</p>
+                        <button id="startButton" onclick="location.href='#website-build'" style="display: none;">[Start]</button>
+                    </div>
                 </div>
             </div>
             <div class="swiper-slide" id="website-build">
@@ -97,6 +101,65 @@
             });
         });
     </script>
-</body>
 
-</html>
+    <script>
+        // set up text to print, each item in array is new line
+        var aText = new Array(
+            "Welcome! Explore my collection of projects and collaborations that showcase my journey in big data and software engineering. Dive into each project to discover how I use my analytical skills and technical know-how to make strategic decisions and add value."
+        );
+        var iSpeed = 25; // time delay of print out
+        var iIndex = 0; // start printing array at this posision
+        var iArrLength = aText[0].length; // the length of the text array
+        var iScrollAt = 20; // start scrolling up at this many lines
+
+        var iTextPos = 0; // initialise text position
+        var sContents = ''; // initialise contents variable
+        var iRow; // initialise current row
+
+        function typewriter() {
+            sContents = ' ';
+            iRow = Math.max(0, iIndex - iScrollAt);
+            var destination = document.getElementById("typedtext");
+
+            while (iRow < iIndex) {
+                sContents += aText[iRow++] + '<br />';
+            }
+            destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+            if (iTextPos++ == iArrLength) {
+                iTextPos = 0;
+                iIndex++;
+                if (iIndex != aText.length) {
+                    iArrLength = aText[iIndex].length;
+                    setTimeout("typewriter()", 500);
+                } else {
+                    // Typing is finished, remove the cursor
+                    destination.innerHTML = sContents + aText[iIndex - 1];
+                    // Show "Are you ready?" and [Start] button
+                    document.getElementById("after-typing").style.display = "block";
+                    document.getElementById("ready-text").style.opacity = "0";
+                    document.getElementById("startButton").style.opacity = "0";
+                    setTimeout(fadeInElements, 1000);
+                }
+            } else {
+                setTimeout("typewriter()", iSpeed);
+            }
+        }
+
+        function fadeInElements() {
+            var readyText = document.getElementById("ready-text");
+            var startButton = document.getElementById("startButton");
+            
+            readyText.style.transition = "opacity 1s";
+            readyText.style.opacity = "1";
+            
+            setTimeout(function() {
+                startButton.style.display = "inline-block";
+                startButton.style.transition = "opacity 1s";
+                startButton.style.opacity = "1";
+            }, 1000);
+        }
+
+        typewriter();
+    </script>
+
+</body>

@@ -17,4 +17,5 @@ const swiper = new Swiper('.swiper-container', {
             return '<span class="' + className + '">' + slides[index] + '</span>';
         },
     },
+    
 });
